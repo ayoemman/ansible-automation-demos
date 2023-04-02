@@ -1,0 +1,40 @@
+---
+- name: Create Linux groups
+  hosts: localhost
+  become: yes
+  connection: local
+  tasks:
+  - name: Add group Admin with full permissions
+    group:
+      name: admin
+      state: present
+
+  - name: Add group Developer read and write permissions
+    group:
+      name: developer
+      state: present
+
+  - name: Add group Tester with read only permissions
+    group:
+      name: tester
+      state: present
+
+- name: Create users in Linux system
+  hosts: localhost
+  become: yes
+  connection: local
+  tasks:
+  - name: Create user admin1
+    user: admin1
+    comment: "priviledged user"
+    group: admin
+
+  - name: Create user developer1
+    user: developer1
+    comment: "unpriviledged user"
+    group: developer
+
+  - name: Create user tester1
+    user: tester1
+    comment: "unpriviledged user"
+    group: tester
