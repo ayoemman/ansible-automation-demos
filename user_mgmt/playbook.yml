@@ -1,40 +1,64 @@
 ---
-- name: Create Linux groups
-  hosts: localhost
-  become: yes
-  connection: local
+- hosts: localhost
+  become: true
   tasks:
-  - name: Add group Admin with full permissions
-    group:
-      name: admin
-      state: present
-
-  - name: Add group Developer read and write permissions
-    group:
-      name: developer
-      state: present
-
-  - name: Add group Tester with read only permissions
-    group:
-      name: tester
-      state: present
-
-- name: Create users in Linux system
-  hosts: localhost
-  become: yes
-  connection: local
-  tasks:
-  - name: Create user admin1
-    user: admin1
-    comment: "priviledged user"
-    group: admin
-
-  - name: Create user developer1
-    user: developer1
-    comment: "unpriviledged user"
-    group: developer
-
-  - name: Create user tester1
-    user: tester1
-    comment: "unpriviledged user"
-    group: tester
+    - name: Create admin group
+      group:
+        name: admin
+        state: present
+    
+    - name: Create developers group
+      group:
+        name: developers
+        state: present
+    
+    - name: Create testing group
+      group:
+        name: testing
+        state: present
+    
+    - name: Add ad1 and ad2 to admin group
+      user:
+        name: "{{ item }}"
+        groups: admin
+      with_items:
+        - ad1
+        - ad2
+    
+    - name: Add dev1 and dev2 to developers group
+      user:
+        name: "{{ item }}"
+        groups: developers
+      with_items:
+        - dev1
+        - dev2
+    
+    - name: Add qa1 and qa2 to testing group
+      user:
+        name: "{{ item }}"
+        groups: testing
+      with_items:
+        - qa1
+        - qa2
+    
+    - name: Grant admin group sudo privileges
+      lineinfile:
+        path: /etc/sudoers
+        line: "%admin ALL=(ALL) NOPASSWD: ALL"
+        state: present
+    
+    - name: Grant developers group access to /opt/myapp
+      file:
+        path: /opt/myapp
+        owner: root
+        group: developers
+        mode: "0775"
+        state: directory
+    
+    - name: Grant testing group access to /var/log/myapp
+      file:
+        path: /var/log/myapp
+        owner: root
+        group: testing
+        mode: "0775"
+        state: directory
