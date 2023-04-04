@@ -2,6 +2,7 @@
 - hosts: localhost
   become: true
   become_user: root
+  become_method: su
   tasks:
     - name: Create admin group
       group:
@@ -42,11 +43,11 @@
         - qa1
         - qa2
     
-    - name: Grant admin group sudo privileges
-      lineinfile:
-        path: /etc/sudoers
-        line: "%admin ALL=(ALL) NOPASSWD: ALL"
-        state: present
+    # - name: Grant admin group sudo privileges
+    #   lineinfile:
+    #     path: /etc/sudoers
+    #     line: "%admin ALL=(ALL) NOPASSWD: ALL"
+    #     state: present
     
     - name: Grant developers group access to /opt/myapp
       file:
