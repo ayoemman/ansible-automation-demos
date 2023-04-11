@@ -1,0 +1,23 @@
+---
+- hosts: webstack
+  become: true
+  tasks:
+  - name: Installing podman
+    package:
+      name: "podman"
+      state: present
+
+  - name: Pull an image
+    containers.podman.podman_image:
+      name: docker.io/httpd
+
+  - name: run httpd container
+    containers.podman.podman_container:
+      name: webserver
+      image: httpd
+      state: started
+      detach: true
+      expose:
+        - 80
+      ports:
+        - 8080:80

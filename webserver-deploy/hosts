@@ -1,0 +1,5 @@
+[webservers]
+vm2
+
+[webstack:children]
+webservers
