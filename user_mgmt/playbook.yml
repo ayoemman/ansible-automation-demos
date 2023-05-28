@@ -23,6 +23,7 @@
       user:
         name: "{{ item }}"
         groups: admin
+        password: "*"
       with_items:
         - ad1
         - ad2
@@ -31,6 +32,7 @@
       user:
         name: "{{ item }}"
         groups: developers
+        password: "*"
       with_items:
         - dev1
         - dev2
@@ -39,6 +41,7 @@
       user:
         name: "{{ item }}"
         groups: testing
+        password: "*"
       with_items:
         - qa1
         - qa2
