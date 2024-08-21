@@ -1,5 +1,5 @@
 [webservers]
-vm2
+webserver.manny.local
 
 [webstack:children]
 webservers
