@@ -1,5 +1,5 @@
 ---
-- hosts: webserver.manny.local
+- hosts: webservers
   become: true
   tasks:
   - name: Installing podman
