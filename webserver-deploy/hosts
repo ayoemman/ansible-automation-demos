@@ -1,4 +1,4 @@
-[webservers]
+[webstack]
 webserver.manny.local
 
 [webstack:children]
