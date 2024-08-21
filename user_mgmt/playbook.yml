@@ -1,5 +1,5 @@
 ---
-- hosts: webserver
+- hosts: webserver.manny.local
   become: true
   become_user: root
   become_method: su
