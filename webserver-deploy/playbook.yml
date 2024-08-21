@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: webstack
   become: true
   tasks:
   - name: Installing podman
