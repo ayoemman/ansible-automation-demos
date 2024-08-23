@@ -3,3 +3,4 @@ webserver.manny.local
 
 [webstack:children]
 webservers
+node3.manny.local
